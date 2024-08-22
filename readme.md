@@ -1,8 +1,8 @@
-# smem
+## smem
 
-**I did not make this software, I merely edited it for Python 3 compatibility**
+This is a fork of Olivia Mackall's [smem](http://www.selenic.com/smem/) tool, with improvements that make it significantly faster.
 
-[smem](http://www.selenic.com/smem/) is a tool that can give numerous reports on memory usage on Linux systems. Unlike existing tools, smem can report proportional set size (PSS), which is a more meaningful representation of the amount of memory used by libraries and applications in a virtual memory system.
+smem is a tool that can give numerous reports on memory usage on Linux systems. Unlike existing tools, smem can report proportional set size (PSS), which is a more meaningful representation of the amount of memory used by libraries and applications in a virtual memory system.
 
 Because large portions of physical memory are typically shared among multiple applications, the standard measure of memory usage known as resident set size (RSS) will significantly overestimate memory usage. PSS instead measures each application's "fair share" of each shared area to give a realistic measure.
 
