@@ -24,7 +24,7 @@ from multiprocessing import Pool, cpu_count
 from typing import Collection, Dict, List, Optional, Union
 
 
-class UIDCache(object):
+class UIDCache():
     """Class for a simple ID Cache"""
 
     def __init__(self) -> None:
@@ -43,7 +43,7 @@ class UIDCache(object):
             return str(uid)
 
 
-class Proc(object):
+class Proc():
     """Helper class to handle /proc/ filesystem data"""
 
     def __init__(self) -> None:
