@@ -819,7 +819,7 @@ def showtable(rows, fields, columns, sort) -> None:
         print(table_format % tuple([f(v) for f, v in zip(formatter, t)]))
 
 
-def parse_arguments(argv=None) -> argparse.Namespace:
+def parse_arguments() -> argparse.Namespace:
 
     argparser = argparse.ArgumentParser(
         prog="smem",
@@ -952,7 +952,7 @@ def main() -> None:
     global options
     global proc
 
-    options = parse_arguments(sys.argv)
+    options = parse_arguments()
     ignore_autosize = set()
 
     # Check if Linux kernel supports smaps_rollup
