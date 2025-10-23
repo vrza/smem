@@ -21,7 +21,7 @@ import struct
 import sys
 import termios
 from multiprocessing import Pool, cpu_count
-from typing import Dict, List, Optional, Sized, Union
+from typing import Collection, Dict, List, Optional, Union
 
 
 class UIDCache(object):
@@ -724,7 +724,7 @@ def terminal_size():
         return 24, 80
 
 
-def autosize(columns: Sized, fields, rows):
+def autosize(columns: Collection, fields, rows):
     colsizes = {}
     for c in columns:
         if c in ignore_autosize:
@@ -742,7 +742,7 @@ def autosize(columns: Sized, fields, rows):
 
         colsizes[c] = max(sizes)
 
-    overflowcols = (set(["command", "map"]) & set(columns)) - ignore_autosize
+    overflowcols = ({"command", "map"} & set(columns)) - ignore_autosize
     if len(overflowcols) > 0:
         overflowcol = overflowcols.pop()
         totnoflow = sum(colsizes.values()) - colsizes[overflowcol]
