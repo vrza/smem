@@ -772,10 +772,7 @@ def showtable(rows, fields, columns, sort) -> None:
         showfields(fields, missing)
         sys.exit(-1)
 
-    if options.autosize:
-        colsizes = autosize(columns, fields, rows)
-    else:
-        colsizes = {}
+    colsizes = autosize(columns, fields, rows) if options.autosize else {}
 
     for n in columns:
         f = fields[n][2]
