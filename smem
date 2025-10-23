@@ -12,11 +12,14 @@ from __future__ import print_function
 
 import argparse
 import errno
+import fcntl
 import functools
 import os
 import pwd
 import re
+import struct
 import sys
+import termios
 from multiprocessing import Pool, cpu_count
 from typing import Dict, List, Optional, Sized, Union
 
@@ -713,6 +716,14 @@ def showfields(fields, f) -> None:
         print("%-8s %s" % (l, fields[l][-1]))
 
 
+def terminal_size():
+    if sys.stdout.isatty():
+        packed = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, struct.pack('HH', 0, 0))
+        return struct.unpack('HH', packed)
+    else:
+        return 24, 80
+
+
 def autosize(columns: Sized, fields, rows):
     colsizes = {}
     for c in columns:
@@ -735,11 +746,7 @@ def autosize(columns: Sized, fields, rows):
     if len(overflowcols) > 0:
         overflowcol = overflowcols.pop()
         totnoflow = sum(colsizes.values()) - colsizes[overflowcol]
-        try:
-            ttyrows, ttycolumns = os.popen("stty size", "r").read().split()
-            ttyrows, ttycolumns = int(ttyrows), int(ttycolumns)
-        except:
-            ttyrows, ttycolumns = (24, 80)
+        ttyrows, ttycolumns = terminal_size()
         maxflowcol = ttycolumns - totnoflow - len(columns)
         maxflowcol = max(maxflowcol, 10)
         colsizes[overflowcol] = min(colsizes[overflowcol], maxflowcol)
